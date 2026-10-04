@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlixNova — Data-Driven Cinema</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #10101a;
+      --bg3: #16162a;
+      --accent: #7c6ff7;
+      --accent2: #a78bfa;
+      --teal: #2dd4bf;
+      --coral: #f87171;
+      --amber: #fbbf24;
+      --text: #f1f0ff;
+      --muted: #8b8aa8;
+      --border: rgba(124, 111, 247, 0.15);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 2rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 0.45rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .nav-cta:hover { background: var(--accent2) !important; }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 2rem 3rem;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,111,247,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,111,247,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,111,247,0.15) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 780px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,111,247,0.12);
+      border: 1px solid rgba(124,111,247,0.3);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      color: var(--accent2);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-badge span { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; display: inline-block; animation: pulse 2s ease-in-out infinite; }
+
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title .accent-grad {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); background: var(--accent2); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.8rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); background: rgba(124,111,247,0.08); }
+
+    /* ── Stats Strip ── */
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ── Features ── */
+    #features {
+      padding: 5rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .icon-purple { background: rgba(124,111,247,0.15); }
+    .icon-teal { background: rgba(45,212,191,0.12); }
+    .icon-coral { background: rgba(248,113,113,0.12); }
+    .icon-amber { background: rgba(251,191,36,0.12); }
+
+    .feature-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    .feature-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tag-ml { background: rgba(251,191,36,0.12); color: var(--amber); }
+    .tag-nlp { background: rgba(248,113,113,0.12); color: var(--coral); }
+    .tag-viz { background: rgba(45,212,191,0.12); color: var(--teal); }
+    .tag-api { background: rgba(124,111,247,0.12); color: var(--accent2); }
+
+    /* ── Mini Chart Preview ── */
+    #preview {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 3rem;
+    }
+
+    .preview-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) { .preview-inner { grid-template-columns: 1fr; } }
+
+    .preview-text .section-title { margin-bottom: 1rem; }
+    .preview-text p { color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+    .preview-chart {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .chart-header {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .mini-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mini-bar-row { display: flex; align-items: center; gap: 10px; }
+    .mini-bar-label { font-size: 0.78rem; color: var(--muted); width: 80px; flex-shrink: 0; }
+
+    .mini-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+
+    .mini-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      animation: growBar 1s ease-out forwards;
+      transform-origin: left;
+    }
+
+    @keyframes growBar { from { width: 0; } }
+
+    .mini-bar-val { font-size: 0.75rem; color: var(--muted); width: 32px; text-align: right; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2rem 3rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p { color: var(--muted); font-size: 0.85rem; }
+    footer span { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Flix<span>Nova</span></div>
+    <nav>
+      <a href="main.html">Browse</a>
+      <a href="main.html#analytics">Analytics</a>
+      <a href="main.html#faq">FAQ</a>
+      <a href="main.html" class="nav-cta">Launch App →</a>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span></span> ML-powered · Real-time analytics · NLP sentiment</div>
+      <h1 class="hero-title">Cinema intelligence,<br><span class="accent-grad">data-driven.</span></h1>
+      <p class="hero-sub">FlixNova combines movie streaming with machine learning — content-based recommendations, sentiment analysis, and live analytics dashboards built with Python and scikit-learn.</p>
+      <div class="hero-cta-group">
+        <a href="main.html" class="btn-primary">Start Browsing Movies</a>
+        <a href="main.html#analytics" class="btn-outline">View Analytics →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-num">40+</div><div class="stat-label">Curated Movies</div></div>
+    <div class="stat-item"><div class="stat-num">ML</div><div class="stat-label">Recommendations</div></div>
+    <div class="stat-item"><div class="stat-num">NLP</div><div class="stat-label">Sentiment Analysis</div></div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Analytics Charts</div></div>
+  </div>
+
+  <section id="features">
+    <div class="section-eyebrow">What's inside</div>
+    <h2 class="section-title">Built for data analysts.</h2>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon icon-amber">🤖</div>
+        <div class="feature-title">ML Recommendations</div>
+        <p class="feature-desc">Content-based filtering using TF-IDF vectorization and cosine similarity on genre, plot, and cast metadata. Powered by scikit-learn.</p>
+        <span class="feature-tag tag-ml">scikit-learn</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-coral">💬</div>
+        <div class="feature-title">Sentiment Analysis</div>
+        <p class="feature-desc">NLP pipeline that classifies user reviews as Positive, Neutral, or Negative using polarity scoring. Built with TextBlob / VADER logic.</p>
+        <span class="feature-tag tag-nlp">NLP · TextBlob</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-teal">📊</div>
+        <div class="feature-title">Analytics Dashboard</div>
+        <p class="feature-desc">Interactive charts showing genre distribution, ratings heatmap, release year trends, and box office performance — all in-browser with Chart.js.</p>
+        <span class="feature-tag tag-viz">Chart.js · D3</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-purple">🎬</div>
+        <div class="feature-title">OMDb API Integration</div>
+        <p class="feature-desc">Live data fetching from OMDb's movie database — posters, ratings, runtime, and cast details loaded dynamically per search query.</p>
+        <span class="feature-tag tag-api">REST API</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-teal">⭐</div>
+        <div class="feature-title">User Rating System</div>
+        <p class="feature-desc">Persistent star ratings saved per user session, with aggregated score visualization and rating distribution across the catalog.</p>
+        <span class="feature-tag tag-viz">pandas · numpy</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-purple">🔍</div>
+        <div class="feature-title">Smart Search</div>
+        <p class="feature-desc">Real-time search with genre and year filters. Debounced input with live result cards — no page reloads, fully async.</p>
+        <span class="feature-tag tag-api">Async JS</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="preview">
+    <div class="preview-inner">
+      <div class="preview-text">
+        <div class="section-eyebrow">Data at a glance</div>
+        <h2 class="section-title">Genre distribution across the catalog</h2>
+        <p>The analytics dashboard aggregates movie metadata to surface genre patterns, average IMDb ratings, and release year trends. Exactly the kind of EDA you'd present in a Data Analyst portfolio.</p>
+        <a href="main.html#analytics" class="btn-primary">Open Dashboard →</a>
+      </div>
+      <div class="preview-chart">
+        <div class="chart-header">Genre breakdown (40 movies)</div>
+        <div class="mini-bars">
+          <div class="mini-bar-row"><span class="mini-bar-label">Action</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:72%;background:#7c6ff7"></div></div><span class="mini-bar-val">72%</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-label">Drama</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:58%;background:#2dd4bf"></div></div><span class="mini-bar-val">58%</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-label">Sci-Fi</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:45%;background:#fbbf24"></div></div><span class="mini-bar-val">45%</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-label">Thriller</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:38%;background:#f87171"></div></div><span class="mini-bar-val">38%</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-label">Comedy</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:25%;background:#a78bfa"></div></div><span class="mini-bar-val">25%</span></div>
+          <div class="mini-bar-row"><span class="mini-bar-label">Animation</span><div class="mini-bar-track"><div class="mini-bar-fill" style="width:20%;background:#34d399"></div></div><span class="mini-bar-val">20%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 <span>FlixNova</span> — Built with Python, ML &amp; love. — Soumya Gupta</p>
+  </footer>
+
+</body>
+</html>
