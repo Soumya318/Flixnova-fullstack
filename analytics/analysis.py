@@ -1,18 +1,16 @@
 """
 FlixNova — Data Analysis & ML Pipeline
-=======================================
-Author  : Soumya Gupta
-Domain  : Data Analyst (Personal Project)
-Tech    : Python 3.10 · pandas · scikit-learn · matplotlib · TextBlob
+======================================
+Author : Soumya Gupta
 
-This script demonstrates:
-  1. Exploratory Data Analysis (EDA) on a movie dataset
-  2. Content-based Recommendation System (TF-IDF + Cosine Similarity)
-  3. Sentiment Analysis on user reviews (TextBlob / VADER)
-  4. Data visualization using matplotlib / seaborn
+This script covers:
+  1. Exploratory data analysis (EDA) on a movie dataset
+  2. Content-based recommendations (TF-IDF + cosine similarity)
+  3. Sentiment analysis of user reviews (TextBlob polarity)
+  4. Visualisations with matplotlib and seaborn
 
 Run:
-  pip install pandas scikit-learn matplotlib seaborn textblob vaderSentiment
+  pip install -r requirements.txt
   python analysis.py
 """
 
