@@ -1,5 +1,4 @@
 require('dotenv').config();
-// Prefer IPv4: on some networks/hotspots Node's fetch fails over IPv6 even though browsers work
 require('dns').setDefaultResultOrder('ipv4first');
 const express = require('express');
 const cors = require('cors');
@@ -15,7 +14,6 @@ const CACHE_FILE = path.join(__dirname, 'data', 'omdb-cache.json');
 app.use(cors());
 app.use(express.json());
 
-// ---- tiny JSON-file storage helpers ----
 function readJson(file) {
   try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return {}; }
 }
